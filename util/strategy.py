@@ -80,7 +80,7 @@ class EarlyStopping_CycleGAN():
         # 若已经存储了 n 次了，则考虑删除
         if len(total_saved_dir) > 5:
             total_saved_dir.sort(key=lambda w: int(w.split(os.sep)[-1]), reverse=False)
-            del_dir_path = total_saved_dir[0]
+            del_dir_path = os.path.join(self.save_base_dir, total_saved_dir[0])
             print(f'del dir:{del_dir_path}')
             shutil.rmtree(del_dir_path)
 

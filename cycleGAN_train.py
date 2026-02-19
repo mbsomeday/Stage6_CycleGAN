@@ -32,8 +32,6 @@ def get_args():
     parser.add_argument('--save_base_dir', type=str, default=r'/kaggle/working/model')
     parser.add_argument('--save_counter', type=str, default=r'/kaggle/working', help='to save timestamp in txt')
 
-
-
     args = parser.parse_args()
 
     return args
@@ -61,11 +59,6 @@ def init_Hyperparameter(netG_A2B, netG_B2A, netD_A, netD_B):
     loss_D_B = np.inf
 
     return [optimizer_G, optimizer_D_A, optimizer_D_B], [loss_G, loss_D_A, loss_D_B], start_epoch
-
-
-
-
-
 
 
 def train(opts):
