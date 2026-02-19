@@ -32,6 +32,10 @@ def get_args():
     parser.add_argument('--save_base_dir', type=str, default=r'/kaggle/working/model')
     parser.add_argument('--save_counter', type=str, default=r'/kaggle/working', help='to save timestamp in txt')
 
+    # reload
+    parser.add_argument('--reload', action='store_true')
+    parser.add_argument('--reloadweights', nargs='+', default=None)
+
     args = parser.parse_args()
 
     return args
@@ -60,11 +64,81 @@ def init_Hyperparameter(netG_A2B, netG_B2A, netD_A, netD_B):
 
     return [optimizer_G, optimizer_D_A, optimizer_D_B], [loss_G, loss_D_A, loss_D_B], start_epoch
 
+# ------------------------ 【函数】加载训练了一半的模型 ------------------------
+def reload_weights(model, weights_path):
+    checkpoints = torch.load(weights_path, map_location=torch.device(DEVICE))
+    model.load_state_dict(checkpoints['model_state_dict'])
+    model.to(DEVICE)
+    return model
+
+def load_optimizer_loss(loaded_optimizer, weights_path, key_opt, key_loss=None, get_start_epoch=False):
+    checkpoints = torch.load(weights_path, map_location=torch.device(DEVICE))
+    loaded_optimizer.load_state_dict(checkpoints[key_opt])
+    for state in loaded_optimizer.state.values():
+        for k, v in state.items():
+            if isinstance(v, torch.Tensor):
+                state[k] = v.cuda()
+
+
+    if get_start_epoch:
+        start_epoch = checkpoints['epoch']
+        loaded_loss = checkpoints[key_loss]
+        loss_D_A = checkpoints['loss_D_A']
+        loss_D_B = checkpoints['loss_D_B']
+        return loaded_optimizer, loaded_loss, loss_D_A, loss_D_B, start_epoch
+    else:
+        return loaded_optimizer
+
+def reload(preTrainedWeights):
+    # 先确定各个模型的权重
+    netG_A2B_weights = preTrainedWeights[0]
+    netG_B2A_weights = preTrainedWeights[1]
+    netD_A_weights = preTrainedWeights[2]
+    netD_B_weights = preTrainedWeights[3]
+
+    # load model
+    norm_layer = get_norm_layer(norm_type='batch')
+    netG_A2B = ResnetGenerator(3, 3, ngf=64, norm_layer=norm_layer, use_dropout=True, n_blocks=9)
+    netG_B2A = ResnetGenerator(3, 3, ngf=64, norm_layer=norm_layer, use_dropout=True, n_blocks=9)
+
+    netG_A2B = reload_weights(netG_A2B, netG_A2B_weights)
+    netG_B2A = reload_weights(netG_B2A, netG_B2A_weights)
+
+    netD_A = Discriminator(3)
+    netD_B = Discriminator(3)
+    netD_A = reload_weights(netD_A, netD_A_weights)
+    netD_B = reload_weights(netD_B, netD_B_weights)
+
+    # load optimizer
+    optimizer_G = torch.optim.Adam(itertools.chain(netG_A2B.parameters(), netG_B2A.parameters()), lr=0.0002, betas=(0.5, 0.999))
+    optimizer_D_A = torch.optim.Adam(netD_A.parameters(), lr=0.0002, betas=(0.5, 0.999))
+    optimizer_D_B = torch.optim.Adam(netD_B.parameters(), lr=0.0002, betas=(0.5, 0.999))
+
+    optimizer_G, loss_G, loss_D_A, loss_D_B, start_epoch = load_optimizer_loss(optimizer_G, netG_A2B_weights,
+                                                                              key_opt='optimizer_G', key_loss='loss_G',
+                                                                              get_start_epoch=True)
+    optimizer_D_A = load_optimizer_loss(optimizer_D_A, netD_A_weights, key_opt='optimizer_D_A', key_loss=None, get_start_epoch=False)
+    optimizer_D_B = load_optimizer_loss(optimizer_D_B, netD_B_weights, key_opt='optimizer_D_B', key_loss=None, get_start_epoch=False)
+
+    optimizers = [optimizer_G, optimizer_D_A, optimizer_D_B]
+    losses = [loss_G, loss_D_A, loss_D_B]
+
+    model = [netG_A2B, netG_B2A, netD_A, netD_B]
+
+    return start_epoch, model, optimizers, losses
+
+
 
 def train(opts):
-    models = get_init_CycleGAN()
-    netG_A2B, netG_B2A, netD_A, netD_B = models
-    optimizers, losses, start_epoch = init_Hyperparameter(netG_A2B, netG_B2A, netD_A, netD_B)
+
+    # 中断后重新训练的情况
+    if opts.reload:
+        start_epoch, models, optimizers, losses = reload(opts.reloadweights)
+        netG_A2B, netG_B2A, netD_A, netD_B = models
+    else:       # 从头训练
+        models = get_init_CycleGAN()
+        netG_A2B, netG_B2A, netD_A, netD_B = models
+        optimizers, losses, start_epoch = init_Hyperparameter(netG_A2B, netG_B2A, netD_A, netD_B)
 
     netG_A2B.to(DEVICE)
     netG_B2A.to(DEVICE)
