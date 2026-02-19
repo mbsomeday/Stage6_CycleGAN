@@ -24,7 +24,7 @@ def get_args():
     parser.add_argument('--val_txt', type=str, default='val.txt')
     parser.add_argument('--train_batch_size', type=int, default=4)
     parser.add_argument('--val_batch_size', type=int, default=4)
-    parser.add_argument('--dataset_name_list', default=['D1', 'D2'], help='style transfer from A to B')
+    parser.add_argument('--dataset_name_list', nargs='+', default=['D1', 'D2'], help='style transfer from A to B')
     parser.add_argument("--dataset_mode", type=str, default="unaligned", help="chooses how datasets are loaded. [unaligned | aligned | single | colorization]")
     parser.add_argument("--direction", type=str, default="AtoB", help="AtoB or BtoA")
 
@@ -143,15 +143,9 @@ def train(opts):
 
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
     args = get_args()
+    print(args)
 
     train(args)
 
