@@ -1,10 +1,10 @@
-import os, argparse, itertools
+import argparse, itertools
 import numpy as np
 
 
 from models.networks import *
 from torch.utils.data import DataLoader
-from datasets.my_dataset import cycleGAN_Dataset
+from util.my_dataset import cycleGAN_Dataset
 from util.image_pool import ImagePool
 from util.strategy import EarlyStopping_CycleGAN
 from util.cyclegan_training import train_one_epoch, val_cycleGAN
