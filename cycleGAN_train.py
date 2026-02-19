@@ -96,8 +96,8 @@ def train(opts):
     criterionCycle = torch.nn.L1Loss()
     criterionIdt = torch.nn.L1Loss()
 
-    early_stopping = EarlyStopping_CycleGAN(from_ds_name=opts.ds_name_list[0],
-                                            to_ds_name=opts.ds_name_list[1], save_base_dir=opts.save_base_dir,
+    early_stopping = EarlyStopping_CycleGAN(from_ds_name=opts.dataset_name_list[0],
+                                            to_ds_name=opts.dataset_name_list[1], save_base_dir=opts.save_base_dir,
                                             loss_G=loss_G, loss_D_A=loss_D_A, loss_D_B=loss_D_B, save_counter=opts.save_counter
                                             )
 
