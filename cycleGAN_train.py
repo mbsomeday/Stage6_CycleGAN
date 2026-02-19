@@ -120,10 +120,12 @@ def train(opts):
                                                                                                         epoch,
                                                                                                         train_dataset,
                                                                                                         train_loader)
+        torch.cuda.empty_cache()
         loss_G, loss_D_A, loss_D_B = val_cycleGAN(netG_A2B, netG_B2A, netD_A, netD_B,
                                                   val_dataset, val_loader,
                                                   criterionGAN, criterionCycle, criterionIdt,
                                                   )
+        torch.cuda.empty_cache()
 
         print(f'Validation results: loss_G:{loss_G:.6f}, loss_D_A:{loss_D_A:.6f}, loss_D_B:{loss_D_B:.6f}.')
         # Early Stopping 策略
