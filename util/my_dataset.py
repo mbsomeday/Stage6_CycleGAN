@@ -172,7 +172,15 @@ class my_dataset(Dataset):
 
         image_name = image_path.split(os.sep)[-1]
 
-        return image, image_name, ped_label
+        image_dict = {
+            'image': image,
+            'img_name': image_name,
+            'img_path': image_path,
+            'ped_label': ped_label,
+            'ds_label': ds_label
+        }
+
+        return image_dict
 
 
 # if __name__ == '__main__':
