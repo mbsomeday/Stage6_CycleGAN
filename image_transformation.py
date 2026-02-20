@@ -20,7 +20,7 @@ def get_args():
     parser.add_argument('--txt_name', type=str, default='test.txt')
 
     # save
-    parser.add_argument('--save_dir', type=str, default=r'')
+    parser.add_argument('--save_dir', type=str, default=r'D:\my_phd\on_git\Stage6_CycleGAN\aaaGen')
 
     args = parser.parse_args()
 
@@ -75,22 +75,38 @@ def gen_image(opts):
     org_dataset = my_dataset(ds_name_list=opts.org_ds_name, path_key=opts.path_key, txt_name=opts.txt_name)
     org_loader = DataLoader(org_dataset, batch_size=1, shuffle=False)
 
+    # 如果保存的文件夹不存在，则创建
+    if not os.path.exists(os.path.join(opts.save_dir, 'pedestrian')):
+        os.makedirs(os.path.join(opts.save_dir, 'pedestrian'))
+        os.makedirs(os.path.join(opts.save_dir, 'nonPedestrian'))
+
     with torch.no_grad():
         for data_dict in tqdm(org_loader):
+            print(data_dict.keys())
             images = data_dict['image']
             cur_name = data_dict['img_name'][0]
+            ped_label = data_dict['ped_label'][0]
+            img_path = data_dict['img_path']
 
-            image_save_name = cur_name.split('.')[0] + '_D2TD1' + cur_name.split('.')[1]
+            if int(ped_label) == 1:
+                ped_label_name = 'pedestrian'
+            elif int(ped_label) == 0:
+                ped_label_name = 'nonPedestrian'
+            else:
+                raise ValueError('ped label wrong!')
+
+            image_save_name = cur_name.split('.')[0] + '_D2TD1.' + cur_name.split('.')[1]
 
             # 生成图片
             transformed_image = generator(images)
 
-            save_path = os.path.join(opts.save_dir, image_save_name)
+            save_path = os.path.join(opts.save_dir, ped_label_name, image_save_name)
             save_image_tensor(transformed_image, save_path)
 
+            # print(f'image_save_name:{image_save_name}')
+            # print(save_path)
 
-            break
-
+            # break
 
 
         # for images, names, ped_labels in tqdm(org_loader):
