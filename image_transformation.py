@@ -82,10 +82,10 @@ def gen_image(opts):
 
     with torch.no_grad():
         for data_dict in tqdm(org_loader):
-            print(data_dict.keys())
-            images = data_dict['image']
+            # print(data_dict.keys())
+            images = data_dict['image'].to(DEVICE)
             cur_name = data_dict['img_name'][0]
-            ped_label = data_dict['ped_label'][0]
+            ped_label = data_dict['ped_label'][0].to(DEVICE)
             img_path = data_dict['img_path']
 
             if int(ped_label) == 1:
