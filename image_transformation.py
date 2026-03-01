@@ -85,7 +85,7 @@ def gen_image(opts):
             # print(data_dict.keys())
             images = data_dict['image'].to(DEVICE)
             cur_name = data_dict['img_name'][0]
-            ped_label = data_dict['ped_label'][0].to(DEVICE)
+            ped_label = data_dict['ped_label'][0]
             img_path = data_dict['img_path']
 
             if int(ped_label) == 1:
