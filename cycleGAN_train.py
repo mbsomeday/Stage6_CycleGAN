@@ -207,6 +207,9 @@ def train(opts):
         train_loader = DataLoader(train_dataset, batch_size=opts.train_batch_size, shuffle=True)
 
 
+        # 集群测试，先进行一个epoch
+        break
+
 
 
 
