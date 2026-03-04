@@ -30,7 +30,7 @@ def get_args():
 
     # save
     parser.add_argument('--save_base_dir', type=str, default=r'/kaggle/working/model')
-    parser.add_argument('--save_counter', type=str, default=r'/kaggle/working', help='to save timestamp in txt')
+    parser.add_argument('--save_counter', type=str, default=None, help='to save timestamp in txt')
 
     # reload
     parser.add_argument('--reload', action='store_true')
