@@ -196,8 +196,7 @@ def train(opts):
 
         print(f'Validation results: loss_G:{loss_G:.6f}, loss_D_A:{loss_D_A:.6f}, loss_D_B:{loss_D_B:.6f}.')
         # Early Stopping 策略
-        early_stopping(loss_G, loss_D_A, loss_D_B, netG_A2B, netG_B2A, netD_A, netD_B,
-                       optimizer_G, optimizer_D_A, optimizer_D_B, epoch=epoch + 1)
+        early_stopping(loss_G, loss_D_A, loss_D_B, netG_A2B, netG_B2A, netD_A, netD_B, optimizer_G, optimizer_D_A, optimizer_D_B, epoch=epoch + 1)
 
         if early_stopping.early_stop:
             print("Early stopping")
