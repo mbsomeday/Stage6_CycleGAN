@@ -203,8 +203,7 @@ def train(opts):
             print("Early stopping")
             break  # 跳出迭代，结束训练
 
-
-        # 每次重新加载dataloader
+        # 每次重新加载dataloader，防止source和target的图片一一对应
         train_dataset = cycleGAN_Dataset(dataset_name_list=opts.dataset_name_list, path_key=opts.data_key, txt_name=opts.train_txt)
         train_loader = DataLoader(train_dataset, batch_size=opts.train_batch_size, shuffle=True)
 
