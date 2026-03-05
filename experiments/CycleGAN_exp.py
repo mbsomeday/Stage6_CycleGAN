@@ -54,11 +54,11 @@ class CycleGAN_experiment():
                 if total_iters % self.opts.print_freq == 0:
                     t_data = iter_start_time - iter_data_time
 
-                total_iters += self.opts.opts.train_batch_size
-                epoch_iter += self.opts.opts.train_batch_size
+                # total_iters += self.opts.batch_size
+                # epoch_iter += self.opts.batch_size
 
-                total_iters += self.opts.opts.train_batch_size
-                epoch_iter += self.opts.opts.train_batch_size
+                total_iters += self.opts.train_batch_size
+                epoch_iter += self.opts.train_batch_size
 
                 self.cycleGAN.set_input(data)  # unpack data from dataset and apply preprocessing
                 self.cycleGAN.optimize_parameters()  # calculate loss functions, get gradients, update network weights
