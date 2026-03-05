@@ -47,8 +47,6 @@ class CycleGAN_experiment():
             epoch_iter = 0  # the number of training iterations in current epoch, reset to 0 every epoch
 
             for i, data in enumerate(self.train_loader):  # inner loop within one epoch
-                # if i == 5:
-                #     break
 
                 iter_start_time = time.time()  # timer for computation per iteration
                 if total_iters % self.opts.print_freq == 0:
@@ -80,7 +78,7 @@ class CycleGAN_experiment():
                     self.cycleGAN.save_networks(save_suffix)
 
                 iter_data_time = time.time()
-                # break
+
 
             self.cycleGAN.update_learning_rate()  # update learning rates at the end of every epoch
 

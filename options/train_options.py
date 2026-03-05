@@ -12,9 +12,9 @@ class TrainOptions(BaseOptions):
         # 加载训练数据 AtoB
         parser.add_argument('--dataset_name_list', nargs='+', default=['D1', 'D2'], help='style transfer from A to B')
         parser.add_argument('--data_key', type=str, default='Stage6_org')
-        parser.add_argument('--train_txt', type=str, default='train.txt')
+        parser.add_argument('--train_txt', type=str, default='augmentation_train.txt')
         parser.add_argument('--val_txt', type=str, default='val.txt')
-        parser.add_argument('--train_batch_size', type=int, default=4)
+        parser.add_argument('--train_batch_size', type=int, default=16)
         parser.add_argument('--val_batch_size', type=int, default=4)
 
 
@@ -31,8 +31,8 @@ class TrainOptions(BaseOptions):
         parser.add_argument('--epoch_count', type=int, default=1, help='the starting epoch count, we save the model by <epoch_count>, <epoch_count>+<save_latest_freq>, ...')
         parser.add_argument('--phase', type=str, default='train', help='train, val, test, etc')
         # training parameters
-        parser.add_argument('--n_epochs', type=int, default=100, help='number of epochs with the initial learning rate')
-        parser.add_argument('--n_epochs_decay', type=int, default=100, help='number of epochs to linearly decay learning rate to zero')
+        parser.add_argument('--n_epochs', type=int, default=50, help='number of epochs with the initial learning rate')                     # 原来为100
+        parser.add_argument('--n_epochs_decay', type=int, default=50, help='number of epochs to linearly decay learning rate to zero')      # 原来为100
         parser.add_argument('--beta1', type=float, default=0.5, help='momentum term of adam')
         parser.add_argument('--lr', type=float, default=0.0002, help='initial learning rate for adam')
         parser.add_argument('--gan_mode', type=str, default='lsgan', help='the type of GAN objective. [vanilla| lsgan | wgangp]. vanilla GAN loss is the cross-entropy objective used in the original GAN paper.')
