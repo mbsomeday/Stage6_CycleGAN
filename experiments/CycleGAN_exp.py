@@ -37,11 +37,11 @@ class CycleGAN_experiment():
         visualizer = Visualizer(self.opts)  # create a visualizer that display/save images and plots
         total_iters = 0  # the total number of training iterations
 
-        epoch_idx = 0
+        # epoch_idx = 0
         for epoch in range(self.opts.epoch_count, self.opts.n_epochs + self.opts.n_epochs_decay + 1):
-            epoch_idx += 1
-            if epoch_idx == 2:
-                break
+            # epoch_idx += 1
+            # if epoch_idx == 2:
+            #     break
             epoch_start_time = time.time()  # timer for entire epoch
             iter_data_time = time.time()  # timer for data loading per iteration
             epoch_iter = 0  # the number of training iterations in current epoch, reset to 0 every epoch
