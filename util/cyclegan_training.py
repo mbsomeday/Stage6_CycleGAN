@@ -46,7 +46,6 @@ def train_one_epoch(netG_A2B, netG_B2A, netD_A, netD_B,
 
         num_sample = real_A.shape[0]
 
-
         # target_real = Variable(Tensor(num_sample, 1).fill_(1.0), requires_grad=False)
         # target_fake = Variable(Tensor(num_sample, 1).fill_(0.0), requires_grad=False)
 
