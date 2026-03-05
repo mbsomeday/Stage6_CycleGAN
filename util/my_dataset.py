@@ -90,7 +90,14 @@ class cycleGAN_Dataset(Dataset):
         imgB = Image.open(imgB_path)
         imgB = self.image_transformer(imgB)
 
-        return imgA, imgB
+        img_dic = {
+            'A': imgA,
+            'A_paths': imgA_path,
+            'B': imgB,
+            'B_paths': imgB_path,
+        }
+
+        return img_dic
 
 
 class my_dataset(Dataset):
