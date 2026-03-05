@@ -69,7 +69,7 @@ class CycleGAN_experiment():
                     self.cycleGAN.save_networks(save_suffix)
 
                 iter_data_time = time.time()
-                break
+                # break
 
             self.cycleGAN.update_learning_rate()  # update learning rates at the end of every epoch
 
@@ -80,7 +80,7 @@ class CycleGAN_experiment():
 
             print(f"End of epoch {epoch} / {self.opts.n_epochs + self.opts.n_epochs_decay} \t Time Taken: {time.time() - epoch_start_time:.0f} sec")
 
-            break
+            # break
 
 
     def test(self):
