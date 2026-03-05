@@ -1,4 +1,4 @@
-from .base_options import BaseOptions
+from .org_base_options import BaseOptions
 
 
 class TrainOptions(BaseOptions):
@@ -9,15 +9,6 @@ class TrainOptions(BaseOptions):
 
     def initialize(self, parser):
         parser = BaseOptions.initialize(self, parser)
-        # 加载训练数据 AtoB
-        parser.add_argument('--dataset_name_list', nargs='+', default=['D1', 'D2'], help='style transfer from A to B')
-        parser.add_argument('--data_key', type=str, default='Stage6_org')
-        parser.add_argument('--train_txt', type=str, default='train.txt')
-        parser.add_argument('--val_txt', type=str, default='val.txt')
-        parser.add_argument('--train_batch_size', type=int, default=4)
-        parser.add_argument('--val_batch_size', type=int, default=4)
-
-
         # HTML visualization parameters
         parser.add_argument('--display_freq', type=int, default=400, help='frequency of showing training results on screen')
         parser.add_argument('--update_html_freq', type=int, default=1000, help='frequency of saving training results to html')
