@@ -47,8 +47,12 @@ class CycleGAN_experiment():
                 if total_iters % self.opts.print_freq == 0:
                     t_data = iter_start_time - iter_data_time
 
-                total_iters += self.opts.batch_size
-                epoch_iter += self.opts.batch_size
+                total_iters += self.opts.opts.train_batch_size
+                epoch_iter += self.opts.opts.train_batch_size
+
+                total_iters += self.opts.opts.train_batch_size
+                epoch_iter += self.opts.opts.train_batch_size
+
                 self.cycleGAN.set_input(data)  # unpack data from dataset and apply preprocessing
                 self.cycleGAN.optimize_parameters()  # calculate loss functions, get gradients, update network weights
 
@@ -59,7 +63,7 @@ class CycleGAN_experiment():
 
                 if total_iters % self.opts.print_freq == 0:  # print training losses and save logging information to the disk
                     losses = self.cycleGAN.get_current_losses()
-                    t_comp = (time.time() - iter_start_time) / self.opts.batch_size
+                    t_comp = (time.time() - iter_start_time) / self.opts.train_batch_size     # 这里原来是self.opts.batch_size
                     visualizer.print_current_losses(epoch, epoch_iter, losses, t_comp, t_data)
                     visualizer.plot_current_losses(total_iters, losses)
 
