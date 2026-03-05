@@ -78,8 +78,7 @@ class CycleGAN_experiment():
                 self.cycleGAN.save_networks("latest")
                 self.cycleGAN.save_networks(epoch)
 
-            print(
-                f"End of epoch {epoch} / {self.opts.n_epochs + self.opts.n_epochs_decay} \t Time Taken: {time.time() - epoch_start_time:.0f} sec")
+            print(f"End of epoch {epoch} / {self.opts.n_epochs + self.opts.n_epochs_decay} \t Time Taken: {time.time() - epoch_start_time:.0f} sec")
 
             break
 
