@@ -14,6 +14,6 @@ if torch.cuda.is_available():
     print("using", torch.cuda.current_device(), torch.cuda.get_device_name(torch.cuda.current_device()))
 
 if is_ddp:
-    dist.init_process_group(backend="nccl")
+    dist.init_process_group(backend="nccl", device_id=local_rank)
     dist.barrier()
     dist.destroy_process_group()
