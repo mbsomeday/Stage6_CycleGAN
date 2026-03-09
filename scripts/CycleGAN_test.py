@@ -1,6 +1,6 @@
 import torch
 
-from options.test_options import TestOptions
+from ..options.test_options import TestOptions
 from models.cycle_gan_model import CycleGANModel
 # from util.my_dataset import cycleGAN_Dataset
 
