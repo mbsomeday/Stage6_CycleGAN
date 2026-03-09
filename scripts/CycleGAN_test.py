@@ -31,7 +31,7 @@ for i, data in enumerate(test_loader):
     cycleGAN.set_input(data)
     ret = cycleGAN.test()
 
-    gen_images = cycleGAN.fake_B.shape
+    gen_images = cycleGAN.fake_B
 
     for idx, img_path in enumerate(data['A_paths']):
         path_content = img_path.split(os.sep)
