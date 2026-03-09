@@ -5,6 +5,7 @@ sys.path.append(root_path)
 
 import torch
 from torch.utils.data import DataLoader
+from tqdm import tqdm
 
 from options.test_options import TestOptions
 from models.cycle_gan_model import CycleGANModel
@@ -33,7 +34,7 @@ for i, data in enumerate(test_loader):
 
     gen_images = cycleGAN.fake_B
 
-    for idx, img_path in enumerate(data['A_paths']):
+    for idx, img_path in tqdm(enumerate(data['A_paths'])):
         path_content = img_path.split(os.sep)
         org_img_name = path_content[-1].split('.')
         new_img_name = org_img_name[0] + '_D2toD1.' + org_img_name[-1]
