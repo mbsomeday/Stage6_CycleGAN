@@ -1,14 +1,8 @@
-import os
-from pathlib import Path
-from data import create_dataset
-from models import create_model
-from util.visualizer import save_images
-from util import html
 import torch
 
 from options.test_options import TestOptions
 from models.cycle_gan_model import CycleGANModel
-from util.my_dataset import cycleGAN_Dataset
+# from util.my_dataset import cycleGAN_Dataset
 
 
 opt = TestOptions().parse()  # get test options
