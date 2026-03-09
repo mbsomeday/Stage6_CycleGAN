@@ -29,7 +29,7 @@ test_loader = DataLoader(test_dataset, batch_size=opt.test_batch_size, shuffle=F
 for i, data in enumerate(test_loader):
     cycleGAN.set_input(data)
     ret = cycleGAN.test()
-    print(ret.shape)
+    print(cycleGAN.fake_B.shape)
 
 
     break
