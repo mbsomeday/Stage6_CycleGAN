@@ -42,12 +42,10 @@ for i, data in enumerate(test_loader):
         cur_img = gen_images[idx].unsqueeze(0)
 
         save_image_tensor(cur_img, img_save_path)
-        break
 
 
 
 
-    break
 
 
 
