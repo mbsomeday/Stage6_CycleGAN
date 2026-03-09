@@ -12,8 +12,12 @@ class TestOptions(BaseOptions):
 
         # 数据
         parser.add_argument('--dataset_name_list', nargs='+', default=['D2', 'D1'], help='style transfer from A to B')
-        parser.add_argument('--test_batch_size', type=int, default=32)
+        parser.add_argument('--test_batch_size', type=int, default=4)
+        parser.add_argument('--test_txt_name', type=str, default='test.txt')
         parser.add_argument('--data_key', type=str, default='Stage6_org')
+
+        # generated image save dir
+        parser.add_argument('--gen_img_save_dir', type=str, default=r'D:\my_phd\on_git\Stage6_CycleGAN\scripts\aa')
 
         parser.add_argument('--results_dir', type=str, default='./results/', help='saves results here.')
         parser.add_argument('--aspect_ratio', type=float, default=1.0, help='aspect ratio of result images')
