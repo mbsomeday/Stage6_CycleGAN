@@ -6,12 +6,10 @@ from util.my_dataset import cycleGAN_Dataset
 from util.visualizer import Visualizer
 
 
+
 class CycleGAN_experiment():
     def __init__(self, opts):
         self.opts = opts
-
-
-
 
 
     def training_setup(self):

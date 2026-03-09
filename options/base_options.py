@@ -37,7 +37,8 @@ class BaseOptions:
         # basic parameters
         # parser.add_argument("--dataroot", required=True, help="path to images (should have subfolders trainA, trainB, valA, valB, etc)")
         parser.add_argument("--name", type=str, default="ww_experiment", help="name of the experiment. It decides where to store samples and models")
-        parser.add_argument("--checkpoints_dir", type=str, default=r'D:\my_phd\on_git\Stage6_CycleGAN\temp_results', help="models are saved here")
+        parser.add_argument("--checkpoints_dir", type=str, default=r'E:\Bias_Reduction_Summary\Model_Weights\Pedestrian_Classifiers\CycleGAN\TrainonAug', help="models are saved here")
+
 
         # dataset parameters
         parser.add_argument("--dataset_mode", type=str, default="unaligned", help="chooses how datasets are loaded. [unaligned | aligned | single | colorization]")
@@ -52,7 +53,7 @@ class BaseOptions:
         parser.add_argument("--no_flip", action="store_true", help="if specified, do not flip the images for data augmentation")
         parser.add_argument("--display_winsize", type=int, default=256, help="display window size for both visdom and HTML")
         # additional parameters
-        parser.add_argument("--epoch", type=str, default="latest", help="which epoch to load? set to latest to use latest cached model")
+        parser.add_argument("--epoch", type=str, default="50", help="which epoch to load? set to latest to use latest cached model")
         parser.add_argument("--load_iter", type=int, default="0", help="which iteration to load? if load_iter > 0, the code will load models by iter_[load_iter]; otherwise, the code will load models by [epoch]")
         parser.add_argument("--verbose", action="store_true", help="if specified, print more debugging information")
         parser.add_argument("--suffix", default="", type=str, help="customized suffix: opt.name = opt.name + suffix: e.g., {model}_{netG}_size{load_size}")

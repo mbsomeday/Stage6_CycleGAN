@@ -52,13 +52,12 @@ args.device = init_ddp()
 # 开始时间
 start_time = datetime.datetime.now()
 print(f'Started at {str(start_time.strftime("%Y-%m-%d %H:%M:%S"))}')
-if args.isTrain:
-    print('Current Mode: 【Training】')
-    cyclegan_exp = CycleGAN_experiment(args)
-    cyclegan_exp.train()
 
-else:
-    print('Current Mode: 【Testing】')
+print('Current Mode: 【Training】')
+cyclegan_exp = CycleGAN_experiment(args)
+cyclegan_exp.train()
+
+
 
 
 
