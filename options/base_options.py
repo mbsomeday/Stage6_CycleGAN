@@ -1,9 +1,3 @@
-# 将上级目录加入 sys.path， 防止命令行运行时找不到包
-import os, sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-root_path = os.path.split(curPath)[0]
-sys.path.append(root_path)
-
 import argparse
 from pathlib import Path
 from util import util
@@ -114,13 +108,13 @@ class BaseOptions:
         message += "----------------- End -------------------"
         print(message)
 
-        # save to the disk
-        expr_dir = Path(opt.checkpoints_dir) / opt.name
-        util.mkdirs(expr_dir)
-        file_name = expr_dir / f"{opt.phase}_opt.txt"
-        with open(file_name, "wt") as opt_file:
-            opt_file.write(message)
-            opt_file.write("\n")
+        # # save to the disk
+        # expr_dir = Path(opt.checkpoints_dir) / opt.name
+        # util.mkdirs(expr_dir)
+        # file_name = expr_dir / f"{opt.phase}_opt.txt"
+        # with open(file_name, "wt") as opt_file:
+        #     opt_file.write(message)
+        #     opt_file.write("\n")
 
     def parse(self):
         """Parse our options, create checkpoints directory suffix, and set up gpu device."""
